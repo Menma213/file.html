@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultivation Online - Yuan's Journey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #0f0f0f, #434343);
+            color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(50, 50, 50, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            font-size: 3em;
+            text-align: center;
+            color: #ffcd3c;
+            text-shadow: 0px 0px 10px #ffcd3c;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .card {
+            background: rgba(20, 20, 20, 0.9);
+            border: 1px solid #555;
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(255, 205, 60, 0.7);
+        }
+        .card-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #ffcd3c;
+            border-bottom: 1px solid #ffcd3c;
+            padding-bottom: 5px;
+        }
+        .button {
+            padding: 15px 30px;
+            margin: 15px;
+            font-size: 1.2em;
+            cursor: pointer;
+            background-color: #ffcd3c;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .button:hover {
+            background-color: #ffb800;
+            transform: translateY(-5px);
+        }
+        #message {
+            font-size: 1.3em;
+            color: #ffd700;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .fa {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cultivation Online: Yuan's Journey</h1>
+        <div class="stats-grid">
+            <div class="card">
+                <div class="card-title"><i class="fa fa-user"></i>Main Character</div>
+                <p id="player-name">Yuan</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa fa-dna"></i>Cultivation Level</div>
+                <p id="cultivation-level">1 (Qi Condensation)</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa fa-bolt"></i>Qi</div>
+                <p id="qi">0</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa fa-battery-full"></i>Energy</div>
+                <p id="energy">100</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa fa-heart"></i>Health</div>
+                <p id="health">100</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa fa-gem"></i>Spiritual Treasures</div>
+                <p id="treasure">None</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa fa-users"></i>Sect</div>
+                <p id="sect">None</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa fa-coins"></i>Spirit Stones</div>
+                <p id="spirit-stones">50</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa fa-chart-line"></i>Reputation</div>
+                <p id="reputation">Unknown</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa fa-box"></i>Inventory</div>
+                <p id="inventory-items">None</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa fa-book"></i>Skills</div>
+                <p id="skills">None</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa fa-paw"></i>Pet Companion</div>
+                <p id="pet-companion">None</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa fa-shield-alt"></i>Equipment</div>
+                <p id="equipment">None</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa fa-horse"></i>Mount</div>
+                <p id="mount">None</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="button" onclick="meditate()"><i class="fa fa-meditate"></i>Meditate</button>
+            <button class="button" onclick="battleMonster()"><i class="fa fa-skull"></i>Battle Monster</button>
+            <button class="button" onclick="joinSect()"><i class="fa fa-users"></i>Join Sect</button>
+            <button class="button" onclick="undertakeMission()"><i class="fa fa-scroll"></i>Undertake Mission</button>
+            <button class="button" onclick="rest()"><i class="fa fa-bed"></i>Rest</button>
+            <button class="button" onclick="visitMarket()"><i class="fa fa-store"></i>Visit Market</button>
+            <button class="button" onclick="gatherHerbs()"><i class="fa fa-leaf"></i>Gather Herbs</button>
+            <button class="button" onclick="learnSkill()"><i class="fa fa-book-open"></i>Learn Skill</button>
+            <button class="button" onclick="practiceSkill()"><i class="fa fa-dumbbell"></i>Practice Skill</button>
+            <button class="button" onclick="alchemy()"><i class="fa fa-flask"></i>Perform Alchemy</button>
+            <button class="button" onclick="train()"><i class="fa fa-fist-raised"></i>Train Body</button>
+            <button class="button" onclick="exploreDungeon()"><i class="fa fa-dragon"></i>Explore Dungeon</button>
+            <button class="button" onclick="dualCultivation()"><i class="fa fa-hand-holding-heart"></i>Dual Cultivation</button>
+            <button class="button" onclick="faceTribulation()"><i class="fa fa-cloud-bolt"></i>Face Heavenly Tribulation</button>
+            <button class="button" onclick="summonPet()"><i class="fa fa-paw"></i>Summon Pet Companion</button>
+            <button class="button" onclick="tradeInMarketplace()"><i class="fa fa-exchange-alt"></i>Trade in Marketplace</button>
+            <button class="button" onclick="takeDailyQuest()"><i class="fa fa-clipboard-check"></i>Take Daily Quest</button>
+            <button class="button" onclick="consumeCultivationPill()"><i class="fa fa-capsules"></i>Consume Cultivation Pill</button>
+            <button class="button" onclick="acquireMount()"><i class="fa fa-horse-head"></i>Acquire Mount</button>
+            <button class="button" onclick="attemptBreakthrough()"><i class="fa fa-lightbulb"></i>Attempt Breakthrough</button>
+        </div>
+
+        <p id="message"></p>
+    </div>
+
+    <script>
+        let playerName = "Yuan";
+        let cultivationLevel = 1;
+        let qi = 0;
+        let energy = 100;
+        let health = 100;
+        let treasure = "None";
+        let sect = "None";
+        let spiritStones = 50;
+        let reputation = "Unknown";
+        let inventory = [];
+        let skills = [];
+        let petCompanion = "None";
+        let equipment = "None";
+        let mount = "None";
+
+        const cultivationRealms = [
+            "Qi Condensation", "Foundation Establishment", "Core Formation", "Nascent Soul", "Soul Formation", "Divine Transformation", "Immortal", "Celestial Immortal", "Golden Immortal", "Heavenly Monarch"
+        ];
+
+        function meditate() {
+            if (energy < 20) {
+                document.getElementById("message").innerText = `${playerName} does not have enough energy to meditate. Rest to regain energy.`;
+            } else {
+                energy -= 20;
+                qi += 10;
+                document.getElementById("message").innerText = `${playerName} meditated and gathered Qi.`;
+                updateStats();
+            }
+        }
+
+        function attemptBreakthrough() {
+            if (qi >= 50) {
+                let successChance = Math.random();
+                if (successChance > 0.6) {
+                    cultivationLevel++;
+                    qi = 0;
+                    document.getElementById("message").innerText = `${playerName} successfully broke through to the next cultivation level!`;
+                } else {
+                    qi = 0;
+                    document.getElementById("message").innerText = `${playerName} failed the breakthrough and lost all Qi.`;
+                }
+                updateStats();
+            } else {
+                document.getElementById("message").innerText = `${playerName} does not have enough Qi to attempt a breakthrough.`;
+            }
+        }
+
+        function battleMonster() {
+            if (health < 30) {
+                document.getElementById("message").innerText = `${playerName}'s health is too low to battle. Meditate or rest to recover.`;
+            } else {
+                let monsterStrength = Math.floor(Math.random() * 100) + 1;
+                let equipmentBonus = equipment !== "None" ? 20 : 0;
+                if (monsterStrength < (cultivationLevel * 10 + equipmentBonus)) {
+                    health -= monsterStrength;
+                    qi += 20;
+                    document.getElementById("message").innerText = `${playerName} defeated the monster and gathered Qi!`;
+                    // Chance to find a spiritual treasure
+                    if (Math.random() > 0.7) {
+                        let newTreasure = "Mystic Jade Pendant";
+                        treasure = newTreasure;
+                        inventory.push(newTreasure);
+                        document.getElementById("message").innerText += ` ${playerName} found a Mystic Jade Pendant!`;
+                    }
+                    // Gain spirit stones
+                    let stonesFound = Math.floor(Math.random() * 20) + 10;
+                    spiritStones += stonesFound;
+                    document.getElementById("message").innerText += ` ${playerName} found ${stonesFound} spirit stones!`;
+                } else {
+                    health -= 30;
+                    document.getElementById("message").innerText = `The monster was too strong. ${playerName} lost some health.`;
+                }
+                updateStats();
+            }
+        }
+
+        function joinSect() {
+            if (sect !== "None") {
+                document.getElementById("message").innerText = `${playerName} is already part of the ${sect} sect.`;
+            } else {
+                sect = "Heavenly Sword Sect";
+                reputation = "Rising Star";
+                document.getElementById("message").innerText = `${playerName} has joined the Heavenly Sword Sect! Reputation has increased.`;
+                updateStats();
+            }
+        }
+
+        function undertakeMission() {
+            if (sect === "None") {
+                document.getElementById("message").innerText = `${playerName} must join a sect before undertaking missions.`;
+            } else {
+                let missionDifficulty = Math.floor(Math.random() * 100) + 1;
+                if (missionDifficulty < cultivationLevel * 10) {
+                    cultivationLevel++;
+                    spiritStones += 20;
+                    document.getElementById("message").innerText = `${playerName} successfully completed the mission, increased their cultivation level, and earned 20 spirit stones!`;
+                } else {
+                    health -= 20;
+                    document.getElementById("message").innerText = `${playerName} failed the mission and lost some health.`;
+                }
+                updateStats();
+            }
+        }
+
+        function rest() {
+            energy += 30;
+            health += 20;
+            document.getElementById("message").innerText = `${playerName} rested and regained energy and health.`;
+            if (energy > 100) energy = 100;
+            if (health > 100) health = 100;
+            updateStats();
+        }
+
+        function visitMarket() {
+            if (spiritStones >= 30) {
+                spiritStones -= 30;
+                let item = "Health Elixir";
+                inventory.push(item);
+                document.getElementById("message").innerText = `${playerName} visited the market and bought a ${item}, which can be used to restore health.`;
+            } else {
+                document.getElementById("message").innerText = `${playerName} does not have enough spirit stones to buy anything at the market.`;
+            }
+            updateStats();
+        }
+
+        function gatherHerbs() {
+            let herbsFound = Math.floor(Math.random() * 5) + 1;
+            let herb = "Healing Herb";
+            for (let i = 0; i < herbsFound; i++) {
+                inventory.push(herb);
+            }
+            document.getElementById("message").innerText = `${playerName} gathered ${herbsFound} Healing Herbs.`;
+            updateStats();
+        }
+
+        function learnSkill() {
+            if (cultivationLevel >= 5 && !skills.includes("Fireball Technique")) {
+                skills.push("Fireball Technique");
+                document.getElementById("message").innerText = `${playerName} has learned the Fireball Technique!`;
+            } else if (skills.includes("Fireball Technique")) {
+                document.getElementById("message").innerText = `${playerName} already knows the Fireball Technique.`;
+            } else {
+                document.getElementById("message").innerText = `${playerName} needs to reach a higher cultivation level to learn new skills.`;
+            }
+            updateStats();
+        }
+
+        function practiceSkill() {
+            if (skills.length > 0) {
+                let skill = skills[Math.floor(Math.random() * skills.length)];
+                document.getElementById("message").innerText = `${playerName} practiced the ${skill}, improving mastery.`;
+                reputation = "Skilled Practitioner";
+            } else {
+                document.getElementById("message").innerText = `${playerName} doesn't know any skills to practice.`;
+            }
+            updateStats();
+        }
+
+        function alchemy() {
+            if (inventory.includes("Healing Herb")) {
+                let herbIndex = inventory.indexOf("Healing Herb");
+                if (herbIndex > -1) {
+                    inventory.splice(herbIndex, 1);
+                    let potion = "Health Potion";
+                    inventory.push(potion);
+                    document.getElementById("message").innerText = `${playerName} used Healing Herbs to create a ${potion}.`;
+                }
+            } else {
+                document.getElementById("message").innerText = `${playerName} does not have enough herbs to perform alchemy.`;
+            }
+            updateStats();
+        }
+
+        function train() {
+            if (energy >= 20) {
+                energy -= 20;
+                health += 10;
+                cultivationLevel++;
+                document.getElementById("message").innerText = `${playerName} trained diligently, increasing their cultivation level and improving physical strength.`;
+            } else {
+                document.getElementById("message").innerText = `${playerName} does not have enough energy to train.`;
+            }
+            updateStats();
+        }
+
+        function exploreDungeon() {
+            if (energy >= 40) {
+                energy -= 40;
+                let dungeonReward = Math.random();
+                if (dungeonReward < 0.5) {
+                    let rareItem = "Ancient Sword";
+                    inventory.push(rareItem);
+                    equipment = rareItem;
+                    document.getElementById("message").innerText = `${playerName} explored the dungeon and found a rare item: ${rareItem}!`;
+                } else {
+                    let monsterStrength = Math.floor(Math.random() * 150) + 50;
+                    if (monsterStrength < cultivationLevel * 15) {
+                        cultivationLevel++;
+                        spiritStones += 50;
+                        document.getElementById("message").innerText = `${playerName} defeated a powerful monster in the dungeon, increased their cultivation level, and earned 50 spirit stones!`;
+                    } else {
+                        health -= 40;
+                        document.getElementById("message").innerText = `${playerName} encountered a powerful monster and lost some health.`;
+                    }
+                }
+            } else {
+                document.getElementById("message").innerText = `${playerName} does not have enough energy to explore the dungeon.`;
+            }
+            updateStats();
+        }
+
+        function dualCultivation() {
+            if (sect !== "None" && energy >= 30) {
+                energy -= 30;
+                cultivationLevel++;
+                document.getElementById("message").innerText = `${playerName} engaged in dual cultivation, increasing their cultivation level more rapidly.`;
+            } else {
+                document.getElementById("message").innerText = `${playerName} needs to join a sect and have enough energy to perform dual cultivation.`;
+            }
+            updateStats();
+        }
+
+        function faceTribulation() {
+            if (cultivationLevel % 5 === 0 && cultivationLevel > 1) {
+                let tribulationSuccess = Math.random() > 0.5;
+                if (tribulationSuccess) {
+                    cultivationLevel++;
+                    document.getElementById("message").innerText = `${playerName} successfully faced the heavenly tribulation and advanced to a higher realm!`;
+                } else {
+                    health -= 50;
+                    document.getElementById("message").innerText = `${playerName} struggled against the heavenly tribulation and lost some health.`;
+                }
+            } else {
+                document.getElementById("message").innerText = `${playerName} is not ready to face a heavenly tribulation yet.`;
+            }
+            updateStats();
+        }
+
+        function summonPet() {
+            if (petCompanion === "None") {
+                petCompanion = "Spirit Fox";
+                document.getElementById("message").innerText = `${playerName} has summoned a pet companion: ${petCompanion}! The pet will assist in battles.`;
+            } else {
+                document.getElementById("message").innerText = `${playerName} already has a pet companion: ${petCompanion}.`;
+            }
+            updateStats();
+        }
+
+        function tradeInMarketplace() {
+            if (inventory.length > 0) {
+                let itemToSell = inventory.shift();
+                let sellPrice = Math.floor(Math.random() * 20) + 10;
+                spiritStones += sellPrice;
+                document.getElementById("message").innerText = `${playerName} sold ${itemToSell} in the marketplace for ${sellPrice} spirit stones.`;
+            } else {
+                document.getElementById("message").innerText = `${playerName} has no items to sell in the marketplace.`;
+            }
+            updateStats();
+        }
+
+        function takeDailyQuest() {
+            if (energy >= 20) {
+                energy -= 20;
+                let questSuccess = Math.random() > 0.3;
+                if (questSuccess) {
+                    cultivationLevel++;
+                    spiritStones += 30;
+                    document.getElementById("message").innerText = `${playerName} completed the daily quest successfully, increased their cultivation level, and earned 30 spirit stones.`;
+                } else {
+                    health -= 20;
+                    document.getElementById("message").innerText = `${playerName} failed the daily quest and lost some health.`;
+                }
+            } else {
+                document.getElementById("message").innerText = `${playerName} does not have enough energy to take the daily quest.`;
+            }
+            updateStats();
+        }
+
+        function consumeCultivationPill() {
+            if (inventory.includes("Cultivation Pill")) {
+                let pillIndex = inventory.indexOf("Cultivation Pill");
+                if (pillIndex > -1) {
+                    inventory.splice(pillIndex, 1);
+                    cultivationLevel += 2;
+                    document.getElementById("message").innerText = `${playerName} consumed a Cultivation Pill and increased their cultivation level significantly!`;
+                }
+            } else {
+                document.getElementById("message").innerText = `${playerName} does not have a Cultivation Pill to consume.`;
+            }
+            updateStats();
+        }
+
+        function acquireMount() {
+            if (mount === "None" && spiritStones >= 100) {
+                spiritStones -= 100;
+                mount = "Celestial Horse";
+                document.getElementById("message").innerText = `${playerName} acquired a mount: ${mount}. This mount will help regenerate energy faster.`;
+            } else if (mount !== "None") {
+                document.getElementById("message").innerText = `${playerName} already has a mount: ${mount}.`;
+            } else {
+                document.getElementById("message").innerText = `${playerName} does not have enough spirit stones to acquire a mount.`;
+            }
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById("cultivation-level").innerText = `Cultivation Level: ${cultivationLevel} (${getCultivationRealm()})`;
+            document.getElementById("qi").innerText = `Qi: ${qi}`;
+            document.getElementById("energy").innerText = `Energy: ${energy}`;
+            document.getElementById("health").innerText = `Health: ${health}`;
+            document.getElementById("treasure").innerText = `Spiritual Treasures: ${treasure}`;
+            document.getElementById("sect").innerText = `Sect: ${sect}`;
+            document.getElementById("spirit-stones").innerText = `Spirit Stones: ${spiritStones}`;
+            document.getElementById("reputation").innerText = `Reputation: ${reputation}`;
+            document.getElementById("inventory-items").innerText = `Inventory: ${inventory.length > 0 ? inventory.join(", ") : "None"}`;
+            document.getElementById("skills").innerText = `Skills: ${skills.length > 0 ? skills.join(", ") : "None"}`;
+            document.getElementById("pet-companion").innerText = `Pet Companion: ${petCompanion}`;
+            document.getElementById("equipment").innerText = `Equipment: ${equipment}`;
+            document.getElementById("mount").innerText = `Mount: ${mount}`;
+        }
+
+        function getCultivationRealm() {
+            return cultivationLevel <= cultivationRealms.length ? cultivationRealms[cultivationLevel - 1] : "Heavenly Monarch";
+        }
+    </script>
+</body>
+</html>
